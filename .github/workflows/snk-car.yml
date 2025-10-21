@@ -37,15 +37,12 @@ jobs:
           npm install ts-node typescript --save-dev
 
           echo "🏎️ Génération du Snake Car SVG..."
+          mkdir -p ../dist
+          export GITHUB_USER_NAME=CedricGayraud
+          export GH_TOKEN=${{ secrets.GH_TOKEN }}
+
           npx ts-node packages/action/index.ts \
-            --user CedricGayraud \
             --output ../dist/github-contribution-grid-snake.svg
 
           echo "✅ Génération terminée"
         shell: bash
-
-      - name: Push snake car animation to the output branch
-        uses: crazy-max/ghaction-github-pages@v3
-        with:
-          target_branch: output
-          build_dir: dist
