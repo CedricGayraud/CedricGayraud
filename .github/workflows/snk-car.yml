@@ -31,6 +31,7 @@ jobs:
 
           # Installe les dépendances nécessaires au moteur
           npm install
+          npm install typescript --save-dev
 
           # Compile le code TypeScript du package action
           npx tsc -p tsconfig.json
