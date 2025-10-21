@@ -1,31 +1,43 @@
-# .github/workflows/snake.yml
 name: Generate Snake Car
 
 on:
-  schedule: # exécution quotidienne
-    - cron: "0 0 * * *"
-  workflow_dispatch: # exécution manuelle
+  schedule:
+    - cron: "0 0 * * *"  # exécution chaque jour à minuit
+  workflow_dispatch:
   push:
     branches:
       - main
-      
+
 permissions:
   contents: write
-  
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      # Cloner le dépôt principal
+      - name: Checkout personal repo
         uses: actions/checkout@v4
 
-      - name: Generate snake car animation
-        uses: CedricGayraud/snk-car@main 
+      # Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          github_user_name: CedricGayraud
-          outputs: dist/github-contribution-grid-snake.svg
+          node-version: 20
 
+      # Cloner le moteur snake-car
+      - name: Clone snake-car engine
+        run: |
+          git clone https://github.com/CedricGayraud/snk-car.git
+          npm install
+          cd snk-car/package/demo
+          npm run build || echo "No build step"
+          
+          # moteur qui génère le SVG
+          node dist/index.js --user CedricGayraud --output ../../../../dist/github-contribution-grid-snake.svg
+        shell: bash
+
+      # Publier le SVG sur la branche output
       - name: Push snake car animation to the output branch
         uses: crazy-max/ghaction-github-pages@v3
         with:
