@@ -52,3 +52,4 @@ Je m’intéresse particulièrement aux **systèmes connectés**, à la **télé
 ---
 
 ![GitHub Snake Animation](https://github.com/CedricGayraud/CedricGayraud/blob/output/github-contribution-grid-snake.svg)
+
