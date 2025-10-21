@@ -2,7 +2,7 @@ name: Generate Snake Car
 
 on:
   schedule:
-    - cron: "0 0 * * *" # exécution quotidienne
+    - cron: "0 0 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -27,14 +27,18 @@ jobs:
       - name: Clone snake-car engine
         run: |
           git clone https://github.com/CedricGayraud/snk-car.git
-          cd snk-car
-          npm install
-          npm run build || echo "No build step"
+          cd snk-car/packages/action
 
-          # génération du SVG via le moteur CLI
-          node packages/snk/dist/index.js \
+          # Installe les dépendances nécessaires au moteur
+          npm install
+
+          # Compile le code TypeScript du package action
+          npx tsc -p tsconfig.json
+
+          # Exécute le moteur de génération
+          node dist/index.js \
             --user CedricGayraud \
-            --output ../dist/github-contribution-grid-snake.svg
+            --output ../../../../dist/github-contribution-grid-snake.svg
         shell: bash
 
       - name: Push snake car animation to the output branch
