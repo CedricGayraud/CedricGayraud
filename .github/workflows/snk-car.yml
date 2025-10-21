@@ -27,19 +27,22 @@ jobs:
       - name: Clone snake-car engine
         run: |
           git clone https://github.com/CedricGayraud/snk-car.git
-          cd snk-car/packages/action
+          cd snk-car
 
-          # Installe les dépendances nécessaires au moteur
+          echo "📦 Installation des dépendances..."
           npm install
           npm install typescript --save-dev
 
-          # Compile le code TypeScript du package action
-          npx tsc -p tsconfig.json
+          echo "⚙️ Compilation TypeScript globale..."
+          npx tsc -p tsconfig.base.json
 
-          # Exécute le moteur de génération
+          echo "🏎️ Génération du Snake Car SVG..."
+          cd packages/action
           node dist/index.js \
             --user CedricGayraud \
-            --output ../../../../dist/github-contribution-grid-snake.svg
+            --output ../../../dist/github-contribution-grid-snake.svg
+
+          echo "✅ Génération terminée"
         shell: bash
 
       - name: Push snake car animation to the output branch
