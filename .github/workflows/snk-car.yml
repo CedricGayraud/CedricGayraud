@@ -34,7 +34,7 @@ jobs:
           npm install typescript --save-dev
 
           echo "⚙️ Compilation TypeScript globale..."
-          npx tsc -p tsconfig.base.json
+          npx tsc -p tsconfig.json
 
           echo "🏎️ Génération du Snake Car SVG..."
           cd packages/action
