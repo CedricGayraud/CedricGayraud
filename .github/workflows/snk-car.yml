@@ -31,16 +31,13 @@ jobs:
 
           echo "📦 Installation des dépendances..."
           npm install
-          npm install typescript --save-dev
-
-          echo "⚙️ Compilation TypeScript globale..."
-          npx tsc -p tsconfig.json
+          npm install ts-node typescript --save-dev
 
           echo "🏎️ Génération du Snake Car SVG..."
-          cd packages/action
-          node dist/index.js \
+          npx ts-node packages/action/index.ts \
+
             --user CedricGayraud \
-            --output ../../../dist/github-contribution-grid-snake.svg
+            --output ../dist/github-contribution-grid-snake.svg
 
           echo "✅ Génération terminée"
         shell: bash
